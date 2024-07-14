@@ -23,6 +23,16 @@ export class TaskController {
 		}
 	};
 
+	getTask = async (req: Request, res: Response) => {
+		try {
+			const { id } = req.params;
+			const task = await this.taskService.getTask(Number(id));
+			res.status(200).json(task);
+		} catch (error) {
+			res.status(500).json({ error: (error as Error).message });
+		}
+	};
+
 	deleteTask = async (req: Request, res: Response) => {
 		const { id } = req.params;
 		await this.taskService.deleteTask(Number(id));

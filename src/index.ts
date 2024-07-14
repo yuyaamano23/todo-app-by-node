@@ -24,6 +24,7 @@ const connectWithRetry = () => {
 
 			app.post("/tasks", taskController.createTask);
 			app.get("/tasks", taskController.getAllTasks);
+			app.get("/tasks/:id", taskController.getTask);
 			app.delete("/tasks/:id", taskController.deleteTask);
 
 			const PORT = process.env.PORT || 3000;
