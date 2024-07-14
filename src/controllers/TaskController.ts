@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 import { TaskService } from "../services/TaskService";
-import { TaskRepository } from "../domain/repositories/TaskRepository";
 
 export class TaskController {
 	private taskService: TaskService;
 
-	constructor(taskRepository: TaskRepository) {
-		this.taskService = new TaskService(taskRepository);
+	constructor(taskService: TaskService) {
+		this.taskService = taskService;
 	}
 
 	createTask = async (req: Request, res: Response) => {
@@ -16,8 +15,12 @@ export class TaskController {
 	};
 
 	getAllTasks = async (req: Request, res: Response) => {
-		const tasks = await this.taskService.getAllTasks();
-		res.status(200).json(tasks);
+		try {
+			const tasks = await this.taskService.getAllTasks();
+			res.status(200).json(tasks);
+		} catch (error) {
+			res.status(500).json({ error: (error as Error).message });
+		}
 	};
 
 	deleteTask = async (req: Request, res: Response) => {

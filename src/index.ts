@@ -2,6 +2,7 @@ import "reflect-metadata";
 import express from "express";
 import { AppDataSource } from "./data-source";
 import { TaskController } from "./controllers/TaskController";
+import { TaskService } from "./services/TaskService";
 import { DBTaskRepository } from "./infrastructures/repositories/DBTaskRepository";
 
 const app = express();
@@ -11,8 +12,15 @@ const connectWithRetry = () => {
 	AppDataSource.initialize()
 		.then(() => {
 			console.log("Database connection established successfully");
+
+			// ここでリポジトリのインスタンスを作成
 			const taskRepository = new DBTaskRepository();
-			const taskController = new TaskController(taskRepository);
+
+			// サービスのインスタンスを作成
+			const taskService = new TaskService(taskRepository);
+
+			// コントローラーにサービスを注入
+			const taskController = new TaskController(taskService);
 
 			app.post("/tasks", taskController.createTask);
 			app.get("/tasks", taskController.getAllTasks);
