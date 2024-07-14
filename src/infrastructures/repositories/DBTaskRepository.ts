@@ -3,7 +3,7 @@ import { AppDataSource } from "../../data-source";
 import { Task } from "../../domain/models/Task";
 import { TaskRepository } from "../../domain/repositories/TaskRepository";
 
-export class MySQLTaskRepository implements TaskRepository {
+export class DBTaskRepository implements TaskRepository {
 	private repository: Repository<Task>;
 
 	constructor() {

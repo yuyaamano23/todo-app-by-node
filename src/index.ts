@@ -2,7 +2,7 @@ import "reflect-metadata";
 import express from "express";
 import { AppDataSource } from "./data-source";
 import { TaskController } from "./controllers/TaskController";
-import { MySQLTaskRepository } from "./infrastructures/repositories/MySQLTaskRepository";
+import { DBTaskRepository } from "./infrastructures/repositories/DBTaskRepository";
 
 const app = express();
 app.use(express.json());
@@ -10,7 +10,7 @@ app.use(express.json());
 const connectWithRetry = () => {
 	AppDataSource.initialize()
 		.then(() => {
-			const taskRepository = new MySQLTaskRepository();
+			const taskRepository = new DBTaskRepository();
 			const taskController = new TaskController(taskRepository);
 
 			app.post("/tasks", taskController.createTask);
