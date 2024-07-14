@@ -10,6 +10,7 @@ app.use(express.json());
 const connectWithRetry = () => {
 	AppDataSource.initialize()
 		.then(() => {
+			console.log("Database connection established successfully");
 			const taskRepository = new DBTaskRepository();
 			const taskController = new TaskController(taskRepository);
 

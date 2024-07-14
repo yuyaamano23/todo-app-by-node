@@ -8,18 +8,18 @@ export class TaskService {
 		this.taskRepository = taskRepository;
 	}
 
-	async createTask(title: string, description: string): Promise<Task> {
+	async createTask(title: string, description: string) {
 		const task = new Task();
 		task.title = title;
 		task.description = description;
 		return this.taskRepository.save(task);
 	}
 
-	async getAllTasks(): Promise<Task[]> {
+	async getAllTasks() {
 		return this.taskRepository.findAll();
 	}
 
-	async deleteTask(id: number): Promise<void> {
+	async deleteTask(id: number) {
 		await this.taskRepository.delete(id);
 	}
 }

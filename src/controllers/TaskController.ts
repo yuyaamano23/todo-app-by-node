@@ -15,7 +15,7 @@ export class TaskController {
 		res.status(201).json(task);
 	};
 
-	getAllTasks = async (res: Response) => {
+	getAllTasks = async (req: Request, res: Response) => {
 		const tasks = await this.taskService.getAllTasks();
 		res.status(200).json(tasks);
 	};

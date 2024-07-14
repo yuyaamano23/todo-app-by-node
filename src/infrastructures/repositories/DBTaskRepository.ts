@@ -10,15 +10,19 @@ export class DBTaskRepository implements TaskRepository {
 		this.repository = AppDataSource.getRepository(Task);
 	}
 
-	async save(task: Task): Promise<Task> {
+	async save(task: Task) {
 		return this.repository.save(task);
 	}
 
-	async findAll(): Promise<Task[]> {
+	async findAll() {
 		return this.repository.find();
 	}
 
-	async delete(id: number): Promise<void> {
+	async findById(id: number) {
+		return this.repository.findOne({ where: { id } });
+	}
+
+	async delete(id: number) {
 		await this.repository.delete(id);
 	}
 }
