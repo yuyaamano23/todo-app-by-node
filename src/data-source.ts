@@ -3,14 +3,14 @@ import { Task } from "./domain/models/Task";
 
 export const AppDataSource = new DataSource({
 	type: "mysql",
-	host: process.env.DB_HOST,
-	port: Number(process.env.DB_PORT),
-	username: process.env.DB_USER,
-	password: process.env.DB_PASSWORD,
-	database: process.env.DB_NAME,
+	host: process.env.DB_HOST || "localhost",
+	port: Number(process.env.DB_PORT) || 3306,
+	username: process.env.DB_USERNAME || "root",
+	password: process.env.DB_PASSWORD || "password",
+	database: process.env.DB_NAME || "todo_db",
 	synchronize: true,
-	logging: true,
+	logging: false,
 	entities: [Task],
-	subscribers: [],
 	migrations: [],
+	subscribers: [],
 });
