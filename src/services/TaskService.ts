@@ -1,12 +1,12 @@
+import { injectable, inject } from "tsyringe";
 import { Task } from "../domain/models/Task";
 import { TaskRepository } from "../domain/repositories/TaskRepository";
 
+@injectable()
 export class TaskService {
-	private taskRepository: TaskRepository;
-
-	constructor(taskRepository: TaskRepository) {
-		this.taskRepository = taskRepository;
-	}
+	constructor(
+		@inject("TaskRepository") private taskRepository: TaskRepository
+	) {}
 
 	async createTask(title: string, description: string) {
 		const task = new Task();

@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
+import { injectable, inject } from "tsyringe";
 import { TaskService } from "../services/TaskService";
 
+@injectable()
 export class TaskController {
-	private taskService: TaskService;
-
-	constructor(taskService: TaskService) {
-		this.taskService = taskService;
-	}
+	constructor(@inject(TaskService) private taskService: TaskService) {}
 
 	createTask = async (req: Request, res: Response) => {
 		const { title, description } = req.body;
